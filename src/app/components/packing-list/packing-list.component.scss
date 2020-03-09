@@ -1,0 +1,41 @@
+:host {
+  grid-area: side;
+  width: 83vw;
+}
+
+table {
+    width: 100%;
+  }
+  
+  td,
+  th {
+    padding: 8px;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  tr:hover {
+    background-color: #ddd;
+  }
+  
+  th,
+  td {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    padding-left: 20px;
+    text-align: left;
+    color: rgb(107, 121, 143);
+    font-size: 12px;
+    font-weight: normal;
+  }
+
+
+  .draft,
+.pending,
+.verified {
+  padding: 4px;
+  color: white;
+  border-radius: 2px;
+}

@@ -1,0 +1,144 @@
+<div class="packing-list">
+  <div class="header box-shadow">
+    Create Packing List
+  </div>
+  <br>
+  
+  <accordion>
+    <accordion-group>
+      <div class="flex-container" accordion-heading>
+        <div class="dropdown">
+          <i class="fa fa-caret-right"></i>
+        </div>
+        <div class="flex-item packing">Packing List</div>
+        <div class="flex-item">
+          <span class="upload-packinglist">
+            <i class="fa fa-upload"></i>
+            Upload Packing list
+          </span>
+        </div>
+        <span></span>
+        <div class="flex-item total-quantity">Total Quanity: <span>24</span></div>
+        <div class="flex-item total-weight">Total Weight: <span>34</span></div> 
+      </div>
+      <accordion [isAnimated]="true" [closeOthers]="oneAtATime">
+        <div class="ac" *ngFor="let lot of packingListData">
+          <accordion-group [panelClass]="accordion-group" class="accordion-me">
+            <div class="accordion-headers-packing flex-container" accordion-heading>
+              <div class="lot-id flex-item">
+                <p>Lot Id</p>
+                <p>{{lot['lotId']}}</p>
+              </div>
+              <div class="lot-name flex-item">
+                <p>Lot Name</p>
+                <p>{{lot['lotName']}}</p>
+              </div>
+              <span></span>
+              <div class="marks flex-item">
+                <span>Remove all dispatch unit</span>
+              </div>
+        
+            </div>
+            <table >
+              <tr style="border: 1px solid rgba(0,0,0,0.1); background:white">
+                <th *ngFor="let column of packingListHeaders">
+                  {{column}}
+                </th>
+              </tr>
+              <tr *ngFor="let row of lot['packingList']">
+                <td>{{row?.markNumber}}</td>
+                <td>{{row.drawingNumber}}</td>
+                <td>{{convertSet(row.set).text}}
+                  <sup style="padding: 4px;    border: 0.8px solid #9B9B9B;
+                  border-radius: 3.33px;
+                  background-color: #F4F5F7;
+                  color: #898989;">{{convertPriority(row.set).extra}}</sup>
+                </td>
+                <td>{{convertPriority(row.priority).text}} <sup style="padding: 4px;    border: 0.8px solid #9B9B9B;
+                  border-radius: 3.33px;
+                  background-color: #F4F5F7;
+                  color: #898989;">{{convertPriority(row.priority).extra}}</sup></td>
+                <td>{{row.unitWeight }}</td>
+                <td><span>{{row.availableQuantity}}</span></td>
+                <td class="">34MT</td>
+                <td><i class="fa fa-plus download-icon"></i></td>
+              </tr>
+            </table>
+          </accordion-group>
+  
+        </div>
+      </accordion>
+  
+    </accordion-group>
+  </accordion>
+  <accordion>
+    <accordion-group>
+  
+      <div class="dispatch-accordion" accordion-heading>
+        <div class="dropdown">
+          <i class="fa fa-caret-right"></i>
+        </div>
+        Available Dispatch Units
+      </div>
+      <accordion [isAnimated]="true" [closeOthers]="oneAtATime">
+        <div class="ac" *ngFor="let lot of data;index as k;">
+          <accordion-group [panelClass]="accordion-group" class="accordion-me">
+            <div class="accordion-headers" accordion-heading>
+              <div class="lot-id">
+                <p>Lot Id</p>
+                <p>{{lot['lotId']}}</p>
+              </div>
+              <div class="lot-name">
+                <p>Lot Name</p>
+                <p>{{lot['lotName']}}</p>
+              </div>
+              <div class="dispatched">
+                <span class="title">Dispatched</span>
+                <span>{{lot['dispatchedWeight']}} MT</span>
+                <span style="padding-left: 40px;">Total Weight</span>
+                <span>{{lot['totalWeight']}}MT</span>
+  
+                <progressbar [value]="55" style="height:10px; margin-top:4px;background-color:rgb(244, 244, 244);" tooltip="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."></progressbar>
+              </div>
+              <div class="marks" style="padding-left: 27px;">
+                <span>Add all dispatch Units</span>
+              </div>
+              <div class="dropdown">
+                <i class="fa fa-caret-down"></i>
+              </div>
+            </div>
+            <table >
+              <tr style="border: 1px solid rgba(0,0,0,0.1); background:white;">
+                <th *ngFor="let column of headers">
+                  {{column}}
+                </th>
+              </tr>
+              <tr *ngFor="let row of lot['packingList'];index as i;">
+                <td>{{row?.markNumber}}</td>
+                <td>{{row.drawingNumber}}</td>
+                <td>{{convertSet(row.set).text}}
+  
+                  <sup style="padding: 4px;    border: 0.8px solid #9B9B9B;
+                  border-radius: 3.33px;
+                  background-color: #F4F5F7;
+                  color: #898989;">{{convertPriority(row.set).extra}}</sup>
+                </td>
+                <td>{{convertPriority(row.priority).text}} <sup style="padding: 4px;    border: 0.8px solid #9B9B9B;
+                  border-radius: 3.33px;
+                  background-color: #F4F5F7;
+                  color: #898989;">{{convertPriority(row.priority).extra}}</sup></td>
+                <td>{{row.unitWeight }}</td>
+                <td><span>{{row.availableQuantity}}</span></td>
+                <td class="">34MT</td>
+                <td (click)="addPackingList(k,i)"><i class="fa fa-plus download-icon"></i></td>
+              </tr>
+            </table>
+          </accordion-group>
+  
+        </div>
+      </accordion>
+  
+    </accordion-group>
+  </accordion>
+  
+</div>

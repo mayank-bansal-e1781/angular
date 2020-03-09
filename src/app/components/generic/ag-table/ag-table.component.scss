@@ -1,0 +1,51 @@
+table {
+  width: 100%;
+}
+
+td,
+th {
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+tr:hover {
+  background-color: #ddd;
+}
+
+th,
+td {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  padding-left: 20px;
+  text-align: left;
+  color: rgb(107, 121, 143);
+  font-size: 12px;
+  font-weight: normal;
+}
+
+.draft,
+.pending,
+.verified {
+  padding: 4px;
+  color: white;
+  border-radius: 2px;
+}
+
+.draft {
+  background: rgb(247, 181, 0);
+}
+
+.pending {
+  background: rgb(146, 114, 148);
+}
+
+.verified {
+  background: rgb(107, 121, 143);
+}
+.download-icon {
+    border: 1px solid rgb(0, 0, 0, 0.2);
+    padding: 5px;
+}

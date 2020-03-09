@@ -1,0 +1,20 @@
+<table>
+  <tr>
+    <th *ngFor="let column of headers">
+      {{column}}
+    </th>
+  </tr>
+  <tr *ngFor="let row of rowscopy">
+    <td>{{row?.plNumber}}</td>
+    <td>{{row.lotName}}</td>
+    <td>{{row.totalWeight}}</td>
+    <td>{{row.totalQuantity}}</td>
+    <td>{{row.dispatchDate | date : 'd MMM y'}}</td>
+    <td><span [ngClass]="{
+        'verified': row.status == 'VERIFIED',
+        'pending': row.status == 'PENDING_VERIFICATION'
+
+    }">{{row.status}}</span></td>
+    <td class=""><i class="fa fa-download download-icon"></i></td>
+  </tr>
+</table>
