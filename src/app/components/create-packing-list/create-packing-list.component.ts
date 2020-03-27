@@ -16,7 +16,11 @@ export class CreatePackingListComponent implements OnInit {
   oneAtATime: boolean = true;
   packingListHeaders = ["Mark Number", "Drawing", "Set", "Priority", "Unit Weight", "Total Quantity", "Quantity in PL" ,  "Weight in PL"];
   headers = ["Mark Number", "Drawing", "Set", "Priority", "Unit Weight", "Available Quantity", "Total Weight", ""];
-  packingListData = []
+  packingListData = {
+    totalQuantity: 0,
+    totalWeight: 0,
+    data: []
+  }
   rows = [
     {
       "_id": 0,
@@ -3202,14 +3206,51 @@ export class CreatePackingListComponent implements OnInit {
   }
 
   addPackingList(lotIndex, drawingIndex) {
-    console.log(lotIndex)
-    console.log(drawingIndex)
     let lotItem = this.data[lotIndex]
+    let flag= 0;
+    let flag2 = 0
     let drawingItem = lotItem['packingList'][drawingIndex]
     lotItem['packingList'].length = 0;
     lotItem['packingList'].push(drawingItem);
-    this.packingListData.push(lotItem)
-    console.log(this.packingListData)
+    for (let item of this.packingListData.data) {
+      if (item._id == lotItem._id) {
+        item['packingList'].push(drawingItem)
+        flag2  = 1;
+        flag = 1;
+      } 
+    }
+    if(flag == 0) {
+      this.packingListData.data.push(lotItem)
+    } 
+    this.updateTotalWeightInPackingList()
+  }
 
+  removeAllDispatchUnit (index) {
+    let item  = this.packingListData.data[index];
+    this.packingListData.data.splice(index,1);
+    this.data.push(item)
+    this.updateTotalWeightInPackingList()
+  }
+
+  addAllDispatchUnit(index) {
+    this.packingListData.data.push(this.data[index])
+    this.data.splice(index,1)
+    this.updateTotalWeightInPackingList()
+  }
+
+  updateTotalWeightInPackingList () {
+    let totalQuantity = 0,
+    totalWeight = 0;
+    if (this.packingListData.data.length) {
+      for (let item of this.packingListData.data) {
+        for (let du of item['packingList']) {
+          totalQuantity += du['availableQuantity'];
+          totalWeight += du['availableQuantity']*du['unitWeight'];
+        }
+      }
+    }
+
+    this.packingListData.totalQuantity = totalQuantity
+    this.packingListData.totalWeight = totalWeight
   }
 }

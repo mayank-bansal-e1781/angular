@@ -2,7 +2,7 @@
   <div class="header box-shadow">
     Create Packing List
   </div>
-  <br>
+
   
   <accordion>
     <accordion-group>
@@ -10,7 +10,7 @@
         <div class="dropdown">
           <i class="fa fa-caret-right"></i>
         </div>
-        <div class="flex-item packing">Packing List</div>
+        <div class="flex-item packing" style="color: rgb(74, 74, 74);font-size:14px;font-weight:bold;">Packing List</div>
         <div class="flex-item">
           <span class="upload-packinglist">
             <i class="fa fa-upload"></i>
@@ -18,12 +18,18 @@
           </span>
         </div>
         <span></span>
-        <div class="flex-item total-quantity">Total Quanity: <span>24</span></div>
-        <div class="flex-item total-weight">Total Weight: <span>34</span></div> 
+        <div class="flex-item total-quantity">Total Quanity: <span style="color: rgb(23, 43, 77);
+          font-size: 14px;
+          font-weight: bold;
+          ">{{packingListData.totalQuantity}}</span></div>
+        <div class="flex-item total-weight">Total Weight: <span style="color: rgb(23, 43, 77);
+          font-size: 14px;
+          font-weight: bold;
+          ">{{packingListData.totalWeight | number: '1.2-3'}}</span></div> 
       </div>
       <accordion [isAnimated]="true" [closeOthers]="oneAtATime">
-        <div class="ac" *ngFor="let lot of packingListData">
-          <accordion-group [panelClass]="accordion-group" class="accordion-me">
+        <div class="ac" *ngFor="let lot of packingListData.data; index as i">
+          <accordion-group >
             <div class="accordion-headers-packing flex-container" accordion-heading>
               <div class="lot-id flex-item">
                 <p>Lot Id</p>
@@ -34,7 +40,7 @@
                 <p>{{lot['lotName']}}</p>
               </div>
               <span></span>
-              <div class="marks flex-item">
+              <div class="marks flex-item" (click)="removeAllDispatchUnit(i)">
                 <span>Remove all dispatch unit</span>
               </div>
         
@@ -48,20 +54,20 @@
               <tr *ngFor="let row of lot['packingList']">
                 <td>{{row?.markNumber}}</td>
                 <td>{{row.drawingNumber}}</td>
-                <td>{{convertSet(row.set).text}}
+                <td class="set"> <span>{{convertSet(row.set).text}}</span>
                   <sup style="padding: 4px;    border: 0.8px solid #9B9B9B;
                   border-radius: 3.33px;
                   background-color: #F4F5F7;
                   color: #898989;">{{convertPriority(row.set).extra}}</sup>
                 </td>
-                <td>{{convertPriority(row.priority).text}} <sup style="padding: 4px;    border: 0.8px solid #9B9B9B;
+                <td class="priority"><span>{{convertPriority(row.priority).text}}</span> <sup style="padding: 4px;    border: 0.8px solid #9B9B9B;
                   border-radius: 3.33px;
                   background-color: #F4F5F7;
                   color: #898989;">{{convertPriority(row.priority).extra}}</sup></td>
                 <td>{{row.unitWeight }}</td>
                 <td><span>{{row.availableQuantity}}</span></td>
-                <td class="">34MT</td>
-                <td><i class="fa fa-plus download-icon"></i></td>
+                <td class="">{{row.availableQuantity}}MT</td>
+                <td class=""> {{row.availableQuantity*row.unitWeight | number: '1.2'}}MT</td>
               </tr>
             </table>
           </accordion-group>
@@ -78,11 +84,11 @@
         <div class="dropdown">
           <i class="fa fa-caret-right"></i>
         </div>
-        Available Dispatch Units
+        <span style="color: rgb(74, 74, 74);font-size:14px;font-weight:bold;" >Available Dispatch Units</span>
       </div>
       <accordion [isAnimated]="true" [closeOthers]="oneAtATime">
         <div class="ac" *ngFor="let lot of data;index as k;">
-          <accordion-group [panelClass]="accordion-group" class="accordion-me">
+          <accordion-group >
             <div class="accordion-headers" accordion-heading>
               <div class="lot-id">
                 <p>Lot Id</p>
@@ -98,9 +104,9 @@
                 <span style="padding-left: 40px;">Total Weight</span>
                 <span>{{lot['totalWeight']}}MT</span>
   
-                <progressbar [value]="55" style="height:10px; margin-top:4px;background-color:rgb(244, 244, 244);" tooltip="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."></progressbar>
+                <progressbar [value]="55" style="height:10px; margin-top:4px;background-color:rgb(244, 244, 244);" tooltip="Added in packing list - 15 MT"></progressbar>
               </div>
-              <div class="marks" style="padding-left: 27px;">
+              <div class="marks" style="padding-left: 27px;" (click)="addAllDispatchUnit(k)">
                 <span>Add all dispatch Units</span>
               </div>
               <div class="dropdown">
@@ -116,14 +122,14 @@
               <tr *ngFor="let row of lot['packingList'];index as i;">
                 <td>{{row?.markNumber}}</td>
                 <td>{{row.drawingNumber}}</td>
-                <td>{{convertSet(row.set).text}}
+                <td class="set"><span>{{convertSet(row.set).text}}</span>
   
                   <sup style="padding: 4px;    border: 0.8px solid #9B9B9B;
                   border-radius: 3.33px;
                   background-color: #F4F5F7;
                   color: #898989;">{{convertPriority(row.set).extra}}</sup>
                 </td>
-                <td>{{convertPriority(row.priority).text}} <sup style="padding: 4px;    border: 0.8px solid #9B9B9B;
+                <td class="priority"><span>{{convertPriority(row.priority).text}}</span> <sup style="padding: 4px;    border: 0.8px solid #9B9B9B;
                   border-radius: 3.33px;
                   background-color: #F4F5F7;
                   color: #898989;">{{convertPriority(row.priority).extra}}</sup></td>

@@ -3,8 +3,13 @@
   height: 100vh;
   width: 17vw;
   grid-area: main;
+  justify-content: space-between;
   background: linear-gradient(316.08deg, #252a33 0%, #383f4a 100%);
   box-shadow: inset -2px 0 4px 0 rgba(0, 0, 0, 0.2);
+  .header {
+    display: flex;
+    justify-content: space-between;
+  }
 }
 
 body {
@@ -21,4 +26,6 @@ body {
   padding: 0;
 }
 
-
+tr:hover {
+  background-color:  rgb(237, 246, 255);
+}

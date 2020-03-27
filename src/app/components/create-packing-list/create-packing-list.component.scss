@@ -97,7 +97,7 @@ table {
   }
   
   tr:hover {
-    background-color: #ddd;
+    background-color:  rgb(237, 246, 255);
   }
   
   th,
@@ -223,5 +223,31 @@ tr:nth-child(even) {
   background-color: rgb(248, 249, 249);
 }
 .fa-plus {
-  background: rgb(0, 117, 208);
+  color: rgb(0, 117, 208);
 }
+
+.priority span{
+  background: rgb(214, 226, 186);
+  padding:2px 5px;
+  border-radius: 3px;
+  color: rgb(137, 143, 122);
+}
+
+.set span{
+  background: rgb(162, 203, 215);
+  padding:2px 5px;
+  border-radius: 3px;
+  color: rgb(2, 53, 68);
+}
+
+.packing-list {
+  height: 100vh;
+overflow: scroll;
+}
+
+.card:first-child {
+  border-top: none;
+  margin-top: 0px;
+
+}
+
